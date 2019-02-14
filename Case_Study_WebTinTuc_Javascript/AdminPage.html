@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Page</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/css.css">
+	<style>
+	    /* Image Designing Propoerties */
+	    .thumb {
+	        height: 75px;
+	        border: 1px solid #000;
+	        margin: 10px 5px 0 0;
+	    }
+	</style>
+	<script type="text/javascript">
+    /* The uploader form */
+    $(function () {
+        $(":file").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+
+    function imageIsLoaded(e) {
+        $('#_enterAnh').attr('src', e.target.result);
+        $('#yourImage').attr('src', e.target.result);
+    };
+
+</script>
+	
+</head>
+<body>
+	<div class="wrapper">
+    <!-- Sidebar -->
+	    <nav id="sidebar">
+	        <div class="sidebar-header">
+	            <img src="assets/img/khanh.jpg" width="150" height="100">
+	        </div>
+	        <ul class="list-unstyled components">
+	            <li class="active">
+	                <a href="trangchu.html">Trang Chủ</a>           
+	            </li>
+	            <li>
+	                <a href="quantriuser.html">Tài Khoản</a>            
+	            </li>
+	            <li>
+	                <a href="AdminPage.html">Bài Viết</a>
+	            </li>
+	            <li>
+	                <a href="#">Giới Thiệu</a>
+	            </li>
+	        </ul>
+	    </nav>
+	    <div class="container-fluid">
+			<div class="title">
+				<div class="add">
+					<h3>Thêm mới bài viết</h3>
+				</div>
+				<div class="form">
+					<input type="text" id="enterId" placeholder="ID">
+					<input type="text" id="enterTieuDe" placeholder="Tiêu Đề">
+					<input type="text" id="enterTomTat" placeholder="Tóm Tắt">
+					<input type="text" id="enterNoiDung" placeholder="Nội Dung">
+					<input type='file' id="enterAnh" />
+					<img id="_enterAnh" src="#" alt="your image" height=100 width=100>
+					<button class="btn btn-primary" style="width: 300px;margin:20px 300px;" onclick="ShowAdd()">Add</button>
+				</div>
+			</div>
+			<div class="container">
+				<div class="danhsach">
+					<h2>Danh sách bài viết </h2>
+					<p id="tongsobai"></p>
+				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Tiêu Đề</th>
+							<th>Tóm Tắt</th>
+							<th>Nội Dung</th>
+							<th>Ảnh</th>
+							<th>Thao tác</th>
+						</tr>
+					</thead>
+					<tbody id="list">
+					</tbody>
+				</table>
+			</div>
+			<div class="container-fluid">
+				<div id="edit">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="assets/js/baiviet.js"></script>
+	<script type="text/javascript">
+		var result = document.getElementById('list');
+		showBaiViet(listBaiViet);
+		function showBaiViet(arrayBaiViet){
+			var data = "";
+			var count = 0;
+			var max = arrayBaiViet.length;
+			for(var i = 0; i < max;i++){
+				count++;
+					data += "<tr>"+
+								"<td>"+ arrayBaiViet[i].id +"</td>"+
+								"<td>"+ arrayBaiViet[i].tieude +"</td>"+
+								"<td>"+ arrayBaiViet[i].tomtat +"</td>"+
+								"<td>"+ arrayBaiViet[i].noidung +"</td>"+
+								"<td>"+ "<img src='"+ arrayBaiViet[i].anh +"' style='width:50px;height:50px;'>" +"</td>"+
+								"<td>"+"<input type='button' class='btn btn-primary' value='Edit' onclick='showEditBaiViet("+i+")'>"+
+							      	  "<input type='button' class='btn btn-dark' value='Delete' onclick='deleteBaiViet("+i+")'>"+
+							      	"</td>"+
+							      	"</tr>";
+			}
+			result.innerHTML = data;
+			document.getElementById("tongsobai").innerHTML = count + " bài viết";
+		}
+		function deleteBaiViet(index){
+			listBaiViet.splice(index,1);
+			showBaiViet(listBaiViet);
+		}
+		function showEditBaiViet(index){
+			var data ="";
+			var result = document.getElementById("edit");
+			data += "<input type='text' id='valueEditId' value='"+listBaiViet[index].id+"'>"+
+			"<input type='text' id='valueEditTieuDe' value='"+listBaiViet[index].tieude+"'>"+
+			"<input type='text' id='valueEditTomTat' value='"+listBaiViet[index].tomtat+"'>"+
+			"<input type='text' id='valueEditNoiDung' value='"+listBaiViet[index].noidung+"'>"+
+			"<input type='text' id='valueEditAnh' value='"+listBaiViet[index].anh+"'>"+
+			"<button class='btn btn-primary' onclick='EditBaiViet("+index+")'>Sửa</button>";
+			result.innerHTML = data;
+		}
+		function EditBaiViet(index){
+			listBaiViet[index].id = document.getElementById("valueEditId").value;
+			listBaiViet[index].tieude = document.getElementById("valueEditTieuDe").value;
+			listBaiViet[index].tomtat = document.getElementById("valueEditTomTat").value;
+			listBaiViet[index].noidung = document.getElementById("valueEditNoiDung").value;
+			listBaiViet[index].anh = document.getElementById("valueEditAnh").value;
+			showBaiViet(listBaiViet);
+			closeInputEdit();
+		}
+		function closeInputEdit(){
+			//ẩn thẻ input khi edit xong
+			document.getElementById("edit").style.display = "none";
+		}
+		function ShowAdd(){
+			var _Id = document.getElementById('enterId').value;
+			var _TieuDe = document.getElementById('enterTieuDe').value;
+			var _TomTat = document.getElementById('enterTomTat').value;
+			var _NoiDung = document.getElementById('enterNoiDung').value;
+			var _Anh = document.getElementById('enterAnh').value;
+			var _baiViet = new BaiViet(_Id,_TieuDe,_TomTat,_NoiDung,_Anh);
+			if(_TieuDe && _TomTat && _NoiDung && _Anh){
+				listBaiViet.push(_baiViet);
+				showBaiViet(listBaiViet);
+			}
+			//document.getElementById('enterId').value = "";
+			document.getElementById('enterTieuDe').value = "";
+			document.getElementById('enterTomTat').value = "";
+			document.getElementById('enterNoiDung').value = "";
+			document.getElementById('enterAnh').value = "";
+			
+		}		
+	</script>

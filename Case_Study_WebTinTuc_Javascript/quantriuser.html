@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quản trị tài khoản</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/css.css">
+	<script src="assets/js/checklogin.js"></script>
+	
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div id="session">
+				<p id="name"><a href="login.html">Log Out</a></p>
+			</div>
+		</div>
+	</header>
+	<div class="wrapper">
+	    <nav id="sidebar">
+	        <div class="sidebar-header">
+	            <img src="assets/img/khanh.jpg" width="150" height="100">
+	        </div>
+	        <ul class="list-unstyled components">
+	            <li class="active">
+	                <a href="trangchu.html">Trang Chủ</a>           
+	            </li>
+	            <li>
+	                <a href="quantriuser.html">Tài Khoản</a>            
+	            </li>
+	            <li>
+	                <a href="AdminPage.html">Bài Viết</a>
+	            </li>
+	            <li>
+	                <a href="#">Giới Thiệu</a>
+	            </li>
+	        </ul>
+	    </nav>
+	
+		<div class="container-fluid">
+			<div class="title">
+				<div class="add">
+					<h3>Thêm mới</h3>
+				</div>
+				<div class="form">
+					<input type="text" id="enterUserName" placeholder="tên tài khoản">
+					<input type="text" id="enterUserPass" placeholder="mật khẩu">
+					<input type="text" id="enterUserRoles" placeholder="quyền">
+					<button class="btn btn-primary" onclick="ShowAdd()">Add</button>
+				</div>
+			</div>
+			<div class="container">
+				<div class="danhsach">
+					<h2>Danh sách tài khoản </h2>
+					<p id="tongtaikhoan"></p>
+				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Tên tài khoản</th>
+							<th>Mật khẩu</th>
+							<th>Quyền</th>
+							<th>Thao tác</th>
+						</tr>
+					</thead>
+					<tbody id="list">
+					</tbody>
+				</table>
+			</div>
+			<div class="container-fluid">
+				<div id="edit">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="assets/js/index.js"></script>
+	<script src="assets/js/taikhoan.js"></script>
+	<script type="text/javascript">	
+		var result = document.getElementById('list');
+		showUser(listUser);
+		function showUser(arrayUser){
+			var data = "";
+			var count = 0;
+			var max = arrayUser.length;
+			for(var i = 0; i < max;i++){
+				count++;
+					data += "<tr>"+
+								"<td>"+ arrayUser[i].name +"</td>"+
+								"<td>"+ arrayUser[i].pass +"</td>"+
+								"<td>"+ arrayUser[i].roles +"</td>"+
+								"<td>"+"<input type='button' class='btn btn-primary' value='Edit' onclick='showEditUser("+i+")'>"+
+							      	  "<input type='button' class='btn btn-dark' value='Delete' onclick='deleteUser("+i+")'>"+
+							      	"</td>"+
+							      	"</tr>";
+			}
+			result.innerHTML = data;
+			//document.getElementById('name').innerHTML = 
+			document.getElementById("tongtaikhoan").innerHTML = count;
+		}
+		function deleteUser(index){
+			listUser.splice(index,1);
+			showUser(listUser);
+		}
+		function showEditUser(index){
+			var data ="";
+			var result = document.getElementById("edit");
+			data += "<input type='text' id='valueEditUserName' value='"+listUser[index].name+"'>"+
+			"<input type='text' id='valueEditUserPass' value='"+listUser[index].pass+"'>"+
+			"<input type='text' id='valueEditUserRoles' value='"+listUser[index].roles+"'>"+
+			"<button class='btn btn-primary' onclick='EditUser("+index+")'>Sửa</button>";
+			result.innerHTML = data;
+		}
+		function EditUser(index){
+			listUser[index].name = document.getElementById("valueEditUserName").value;
+			listUser[index].pass = document.getElementById("valueEditUserPass").value;
+			listUser[index].roles = document.getElementById("valueEditUserRoles").value;
+			showUser(listUser);
+			closeInputEdit();
+		}
+		function closeInputEdit(){
+			//ẩn thẻ input khi edit xong
+			document.getElementById("edit").style.display = "none";
+		}
+		
+		function ShowAdd(){
+			var _Name = document.getElementById('enterUserName').value;
+			var _Pass = document.getElementById('enterUserPass').value;
+			var _Roles = document.getElementById('enterUserRoles').value;
+			var _user = new User(_Name,_Pass,_Roles);
+			if(_Name && _Pass && _Roles){
+				listUser.push(_user);
+				showUser(listUser);
+			}
+			document.getElementById('enterUserName').value = "";
+			document.getElementById('enterUserPass').value = "";
+			document.getElementById('enterUserRoles').value = "";
+			
+		}		
+	</script>
+</body>
+</html>

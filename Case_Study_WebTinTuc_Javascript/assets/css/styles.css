@@ -1,0 +1,103 @@
+@font-face {
+    font-family: 'fira_sanssemibold';
+    src: url('../font/firasans-semibold-webfont.woff2') format('woff2'),
+         url('../font/firasans-semibold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'fira_sansregular';
+    src: url('../font/firasans-regular-webfont.woff2') format('woff2'),
+         url('../font/firasans-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'fira_sansbold';
+    src: url('../font/firasans-bold-webfont.woff2') format('woff2'),
+         url('../font/firasans-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'proxima_novabold';
+    src: url('../font/proxima_nova_bold-webfont.woff2') format('woff2'),
+         url('../font/proxima_nova_bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'proxima_novasemibold';
+    src: url('../font/fontsfree-net-proxima-nova-sbold-webfont.woff2') format('woff2'),
+         url('../font/fontsfree-net-proxima-nova-sbold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'proxima_novaregular_italic';
+    src: url('../font/proxima_nova_reg_it-webfont.woff2') format('woff2'),
+         url('../font/proxima_nova_reg_it-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'proxima_novablack';
+    src: url('../font/fontsfree-net-proxima-nova-black-webfont.woff2') format('woff2'),
+         url('../font/fontsfree-net-proxima-nova-black-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'proxima_novaregular';
+    src: url('../font/12093-webfont.woff2') format('woff2'),
+         url('../font/12093-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+body{
+    margin: 0px;
+    padding: 0px;
+}
+.mr-auto{
+     margin-top: 10px;   
+
+}
+.nav-link{
+    font-size: 20px;
+    margin-left: 100px;
+    font-family: "fira_sansregular";
+    color:#000000 !important;
+   
+
+}
+
+.navbar-light .navbar-nav .nav-link:hover{
+    color: #b22b78 !important;
+    font-family: 'fira_sanssemibold'; 
+}
+
+.palatin-btn span{
+    font-size: 17px;
+}
+.background-image-container {    
+    background-size: cover;
+    width: auto;
+    height: 250px;
+    background-image: url('../img/banner.jpg');
+  }
+#content{
+  margin-top: 50px;
+}
+
+
